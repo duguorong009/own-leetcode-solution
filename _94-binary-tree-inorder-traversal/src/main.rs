@@ -44,6 +44,23 @@ fn traverse(node: &Option<Rc<RefCell<TreeNode>>>, res: &mut Vec<i32>) {
     }
 }
 
+fn inorder_traversal_using_iteration(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+    let mut cur = root;
+    let mut stack: Vec<Option<Rc<RefCell<TreeNode>>>> = vec![];
+    let mut res = vec![];
+    while cur.is_some() || !stack.is_empty() {
+        while let Some(node) = cur {
+            let left = node.borrow_mut().left.take();
+            stack.push(Some(node));
+            cur = left;
+        }
+        let node = stack.pop().unwrap().unwrap();
+        res.push(node.borrow().val);
+        cur = node.borrow_mut().right.take();
+    }
+    res
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
