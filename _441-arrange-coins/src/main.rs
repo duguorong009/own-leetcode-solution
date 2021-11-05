@@ -43,8 +43,16 @@ fn arrange_coins_using_binary_search(n: i32) -> i32 {
     end
 }
 
+// In essence, use the formula solving
+// (x + 1) * x / 2 <= n or
+//  x^2 + x - 2n = 0
+fn arrange_coins_most_simple_solution(n: i32) -> i32 {
+    (((2 * n as i64) as f64 + 0.25).sqrt() - 0.5).floor() as i32
+}
+
 #[cfg(test)]
 mod tests {
+    use super::*;
     use crate::arrange_coins;
 
     #[test]
@@ -56,6 +64,6 @@ mod tests {
     #[test]
     fn test_2() {
         let n = 8;
-        assert_eq!(arrange_coins(n), 3);
+        assert_eq!(arrange_coins_most_simple_solution(n), 3);
     }
 }
