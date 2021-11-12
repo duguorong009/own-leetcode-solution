@@ -1,22 +1,32 @@
-use std::{collections::HashMap, vec};
-
+use std::collections::HashMap;
 fn main() {
-    let nums: Vec<i32> = vec![2, 7, 11, 14];
-    let target: i32 = 9;
+    println!("Hello world");
+}
 
-    let mut supplement_num_hash_table: HashMap<i32, usize> = HashMap::new();
+fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
+    let mut res: Vec<i32> = vec![];
+    let mut table: HashMap<i32, usize> = HashMap::new();
     for (id, &num) in nums.iter().enumerate() {
-        supplement_num_hash_table.entry(num).or_insert(id);
-    }
-
-    for (id1, &num) in nums.iter().enumerate() {
-        let result = supplement_num_hash_table.get(&(target - num));
-        match result {
-            None => continue,
-            Some(&id2) => {
-                println!("{:?}", vec![id1, id2]);
-                break;
-            }
+        let target_minus_num = target - num;
+        if !table.contains_key(&target_minus_num) {
+            table.insert(num, id);
+        } else {
+            let id1 = *table.get(&target_minus_num).unwrap();
+            res.push(id1 as i32);
+            res.push(id as i32);
+            break;
         }
+    }
+    res
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn test_1() {
+        let nums = vec![2, 7, 11, 15];
+        let target = 9;
+        assert_eq!(two_sum(nums, target), vec![0, 1]);
     }
 }
