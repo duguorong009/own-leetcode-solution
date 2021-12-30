@@ -3,7 +3,7 @@ fn main() {
 }
 
 fn smallest_repunit_div_by_k(k: i32) -> i32 {
-    println!("K::{}", k);
+    // println!("K::{}", k);
     let mut x: i32 = 0;
     for i in 0..k {
         x *= 10;
