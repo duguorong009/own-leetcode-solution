@@ -4,6 +4,8 @@ fn main() {
 
 fn find_judge(n: i32, trust: Vec<Vec<i32>>) -> i32 {
     let n = n as usize;
+
+    // Prepare the degrees representing the graph.
     let mut degree = vec![0; n];
     for edge in trust {
         let u = (edge[0] - 1) as usize;
@@ -12,6 +14,7 @@ fn find_judge(n: i32, trust: Vec<Vec<i32>>) -> i32 {
         degree[u] -= 1;
     }
 
+    // Find the judge(degree = n).
     for i in 0..n {
         if degree[i] as usize == n - 1 {
             return (i + 1) as i32;
