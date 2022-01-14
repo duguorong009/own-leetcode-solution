@@ -3,9 +3,13 @@ fn main() {
 }
 
 fn my_atoi(s: String) -> i32 {
+    // Trim the white space from the start.
     let mut start = s.trim_start();
+
     let mut res: i32 = 0;
     let mut positive = true;
+
+    // Detect if there is a pos/neg sign.
     if start.len() > 1 {
         let c = &start[0..1];
         match c {
@@ -25,6 +29,8 @@ fn my_atoi(s: String) -> i32 {
             }
         }
     }
+
+    // Convert the digit string part into the number.
     for c in start.chars() {
         if ('0'..='9').contains(&c) {
             res = match res.checked_mul(10) {
@@ -100,5 +106,11 @@ mod tests {
     fn test_6() {
         let s = "0032".to_string();
         assert_eq!(my_atoi(s), 32);
+    }
+
+    #[test]
+    fn test_7() {
+        let s = "     42w97".to_string();
+        assert_eq!(my_atoi(s), 42);
     }
 }
