@@ -7,28 +7,17 @@ fn valid_mountain_array(arr: Vec<i32>) -> bool {
     if n < 3 {
         return false;
     }
-    let mut is_decreasing = false;
-    let mut peak_idx = 0;
-    for i in 1..n {
-        if arr[i] - arr[i - 1] == 0 {
-            return false;
-        }
-        if !is_decreasing && arr[i] - arr[i - 1] < 0 {
-            is_decreasing = true;
-            peak_idx = i - 1;
-        }
-        if is_decreasing && (arr[i] - arr[i - 1] > 0) {
-            return false;
-        }
+    let mut i = 0;
+    while i + 1 < n && arr[i] < arr[i + 1] {
+        i += 1;
     }
-    if peak_idx == 0 {
+    if i == 0 || i == n - 1 {
         return false;
     }
-    if is_decreasing {
-        true
-    } else {
-        false
+    while i + 1 < n && arr[i] > arr[i + 1] {
+        i += 1;
     }
+    i == n - 1
 }
 
 #[cfg(test)]
