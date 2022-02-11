@@ -20,7 +20,7 @@ fn check_inclusion(s1: String, s2: String) -> bool {
         c1[(s1[i] - b'a') as usize] += 1;
         c2[(s2[i] - b'a') as usize] += 1;
     }
-    println!("{:?}, {:?}", s1, s2);
+    // println!("{:?}, {:?}", s1, s2);
     if c1 == c2 {
         return true;
     }
@@ -32,7 +32,7 @@ fn check_inclusion(s1: String, s2: String) -> bool {
             return true;
         }
     }
-    println!("{:?}, {:?}", c1, c2);
+    // println!("{:?}, {:?}", c1, c2);
     false
 }
 
