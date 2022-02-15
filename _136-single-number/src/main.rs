@@ -4,19 +4,31 @@ fn main() {
     assert_eq!(single_number(nums), 1);
 }
 
+// fn single_number(nums: Vec<i32>) -> i32 {
+//     let mut num_set: HashSet<i32> = HashSet::new();
+//     for num in nums {
+//         if num_set.contains(&num) {
+//             num_set.remove(&num);
+//         } else {
+//             num_set.insert(num);
+//         }
+//     }
+//     for res in num_set {
+//         return res;
+//     }
+//     0
+// }
+
 fn single_number(nums: Vec<i32>) -> i32 {
-    let mut num_set: HashSet<i32> = HashSet::new();
-    for num in nums {
-        if num_set.contains(&num) {
-            num_set.remove(&num);
-        } else {
-            num_set.insert(num);
-        }
+    let n = nums.len();
+    if n == 1 {
+        return nums[0];
     }
-    for res in num_set {
-        return res;
+    let mut res = nums[0];
+    for i in 1..n {
+        res ^= nums[i];
     }
-    0
+    res
 }
 
 #[cfg(test)]
