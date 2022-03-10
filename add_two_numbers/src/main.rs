@@ -15,10 +15,10 @@ impl ListNode {
 fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
     let mut round: i32 = 0;
     let mut result: Option<Box<ListNode>> = None;
-    let mut l1_node_box = l1.unwrap();
-    let mut l2_node_box = l2.unwrap();
+    let mut n1 = l1.unwrap();
+    let mut n2 = l2.unwrap();
     loop {
-        let sum: i32 = l1_node_box.val + l2_node_box.val + round;
+        let sum: i32 = n1.val + n2.val + round;
         let new_val = sum % 10 as i32;
         round = sum / 10 as i32;
 
@@ -27,21 +27,21 @@ fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Opti
             next: result,
         }));
 
-        if l1_node_box.next == None && l2_node_box.next != None {
-            l1_node_box.next = Some(Box::new(ListNode::new(0)));
-        } else if l1_node_box.next != None && l2_node_box.next == None {
-            l2_node_box.next = Some(Box::new(ListNode::new(0)));
-        } else if l1_node_box.next == None && l2_node_box.next == None {
+        if n1.next.is_none() && n2.next.is_some() {
+            n1.next = Some(Box::new(ListNode::new(0)));
+        } else if n1.next.is_some() && n2.next.is_none() {
+            n2.next = Some(Box::new(ListNode::new(0)));
+        } else if n1.next.is_none() && n2.next.is_none() {
             if round == 0_i32 {
                 break;
             } else {
-                l1_node_box.next = Some(Box::new(ListNode::new(0)));
-                l2_node_box.next = Some(Box::new(ListNode::new(0)));
+                n1.next = Some(Box::new(ListNode::new(0)));
+                n2.next = Some(Box::new(ListNode::new(0)));
             }
         }
 
-        l1_node_box = l1_node_box.next.unwrap();
-        l2_node_box = l2_node_box.next.unwrap();
+        n1 = n1.next.unwrap();
+        n2 = n2.next.unwrap();
     }
 
     reverse_linked_list(result)
@@ -51,7 +51,7 @@ fn reverse_linked_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
     let mut origin: Option<Box<ListNode>> = head;
     let mut result: Option<Box<ListNode>> = None;
     loop {
-        if origin == None {
+        if origin.is_none() {
             break;
         } else {
             let node = origin.unwrap();
@@ -70,7 +70,7 @@ fn main() {
         val: 5,
         next: Some(Box::new(ListNode::new(6))),
     }));
-    // println!("{:?}", reverse_linked_list(l1));
+
     let l2 = Some(Box::new(ListNode::new(8)));
     let result = add_two_numbers(l1, l2);
     println!("{:?}", result);
