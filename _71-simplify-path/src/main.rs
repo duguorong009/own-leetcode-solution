@@ -49,4 +49,10 @@ mod tests {
         let path = "/home//foo/".to_string();
         assert_eq!(simplify_path(path), "/home/foo".to_string());
     }
+
+    #[test]
+    fn test_4() {
+        let path = "////home////foo////../xy".to_string();
+        assert_eq!(simplify_path(path), "/home/xy".to_string());
+    }
 }
