@@ -3,13 +3,21 @@ fn main() {
 }
 
 fn find_duplicate(nums: Vec<i32>) -> i32 {
-    let n = nums.len() - 1;
-    let mut res = 0;
-    // Use the property of XOR ( 0 ^ n ^ n = 0 )
-    for i in 1..=n {
-        res ^= i as i32 ^ nums[i];
+    let mut slow = nums[0];
+    let mut fast = nums[0];
+    loop {
+        slow = nums[slow as usize];
+        fast = nums[nums[fast as usize] as usize];
+        if slow == fast {
+            break;
+        }
     }
-    res ^ nums[0]
+    slow = nums[0];
+    while slow != fast {
+        slow = nums[slow as usize];
+        fast = nums[fast as usize];
+    }
+    fast
 }
 
 #[cfg(test)]
@@ -35,5 +43,11 @@ mod tests {
     fn test_4() {
         let nums = vec![1, 1, 2];
         assert_eq!(find_duplicate(nums), 1);
+    }
+
+    #[test]
+    fn test_5() {
+        let nums = vec![2, 2, 2, 2, 2];
+        assert_eq!(find_duplicate(nums), 2);
     }
 }
