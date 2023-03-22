@@ -37,7 +37,7 @@ fn check_symmetric(
     left: &Option<Rc<RefCell<TreeNode>>>,
     right: &Option<Rc<RefCell<TreeNode>>>,
 ) -> bool {
-    true
+    left == right
 }
 
 #[cfg(test)]
